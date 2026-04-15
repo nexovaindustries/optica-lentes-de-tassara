@@ -24,6 +24,7 @@
       --g0: #061410;
       --g1: #0d2b1e;
       --g2: #1a5c38;
+      --logo-green: #2e4d2a;
       --g3: #2e8b57;
       --g4: #4db87a;
       --g5: #d0ede0;
@@ -460,13 +461,13 @@
     @keyframes fadeIn { to { opacity: 1; } }
 
     .hero-title-main {
-      font-family: 'Outfit', sans-serif;
-      font-size: clamp(3rem, 7vw, 5.5rem);
-      line-height: 0.95;
-      font-weight: 900;
-      letter-spacing: -0.04em;
-      color: var(--g1);
-      margin-bottom: 1rem;
+      font-family: 'Times New Roman', Times, serif;
+      font-size: clamp(4.5rem, 10vw, 7.5rem);
+      line-height: 0.9;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--logo-green);
+      margin-bottom: 1.5rem;
       text-transform: uppercase;
       opacity: 0;
       animation: fadeIn .7s .2s var(--ease-out-expo) forwards;
@@ -487,14 +488,20 @@
     }
 
     .hero-sub {
-      font-size: 1.05rem;
+      font-size: 1.3rem;
       color: var(--muted);
-      max-width: 420px;
-      line-height: 1.75;
-      margin-bottom: 2.4rem;
+      max-width: 500px;
+      line-height: 1.6;
+      margin-bottom: 2.8rem;
       font-weight: 400;
       opacity: 0;
       animation: fadeIn .7s .8s var(--ease-out-expo) forwards;
+    }
+
+    .hero-sub strong {
+      font-family: 'Times New Roman', Times, serif;
+      color: var(--logo-green);
+      font-size: 1.1em;
     }
 
     .hero-actions {
@@ -572,20 +579,18 @@
 
     .hero-img-a {
       position: absolute;
-      top: 0; left: 0;
+      top: -30px; left: 0;
       width: 65%;
-      height: 75%;
-      object-fit: cover;
+      height: auto;
       border-radius: 24px;
       box-shadow: 0 24px 60px rgba(0,0,0,.12);
     }
 
     .hero-img-b {
       position: absolute;
-      bottom: 0; right: 0;
+      bottom: 30px; right: 0;
       width: 52%;
-      height: 60%;
-      object-fit: cover;
+      height: auto;
       border-radius: 24px;
       box-shadow: 0 24px 60px rgba(0,0,0,.12);
       border: 4px solid var(--white);
@@ -593,11 +598,106 @@
 
     .hero-img-c {
       position: absolute;
-      bottom: 20%;
-      left: 5%;
+      bottom: -40px;
+      left: 32%;
       width: 36%;
-      height: 34%;
-      object-fit: cover;
+      height: auto;
+      border-radius: 16px;
+      box-shadow: 0 16px 40px rgba(0,0,0,.15);
+      border: 3px solid var(--white);
+      z-index: 2;
+    }
+
+    /* ── About Us Specific Style ── */
+    #nosotros {
+      background-color: #bdeae1; 
+    }
+
+    /* ── Phone Selector Overlay ── */
+    .contact-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 100000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s var(--ease-out-expo);
+    }
+
+    .contact-overlay.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .contact-sheet {
+      background: var(--white);
+      width: 90%;
+      max-width: 400px;
+      border-radius: 24px;
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.2);
+      transform: translateY(40px) scale(0.95);
+      transition: all 0.5s var(--ease-spring);
+    }
+
+    .contact-overlay.visible .contact-sheet {
+      transform: translateY(0) scale(1);
+    }
+
+    .contact-sheet h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      color: var(--text);
+    }
+
+    .contact-options {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-opt-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      padding: 1.25rem;
+      border-radius: 16px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: transform 0.2s;
+    }
+
+    .contact-opt-btn:active { transform: scale(0.97); }
+
+    .opt-call {
+      background: var(--g6);
+      color: var(--g2);
+      border: 1px solid var(--border);
+    }
+
+    .opt-wa {
+      background: #25D366;
+      color: #fff;
+    }
+
+    .contact-close-btn {
+      background: none;
+      border: none;
+      font-weight: 600;
+      color: var(--muted);
+      cursor: none;
+      padding: 0.5rem;
+    }
+
       border-radius: 16px;
       box-shadow: 0 16px 40px rgba(0,0,0,.1);
       border: 4px solid var(--white);
@@ -1114,72 +1214,61 @@
     ═══════════════════════════════════════════ */
     #galeria { background: var(--cream); }
 
-    .gallery-masonry {
-      columns: 4;
-      column-gap: 14px;
+    .gallery-overflow {
+      width: 100vw;
+      margin-left: -5vw;
+      overflow: hidden;
+      position: relative;
+      padding: 1rem 0;
+    }
+
+    .gallery-track {
+      display: flex;
+      gap: 20px;
+      padding: 0 10px;
+      width: max-content;
+      animation: galleryScroll 50s linear infinite;
+    }
+
+    .gallery-overflow:hover .gallery-track {
+      animation-play-state: paused;
     }
 
     .gallery-item {
-      break-inside: avoid;
-      margin-bottom: 14px;
+      flex-shrink: 0;
+      height: 380px;
+      width: auto;
       border-radius: var(--r);
       overflow: hidden;
       position: relative;
-      cursor: none;
-      transform-origin: center bottom;
+      background: #eee;
+      box-shadow: 0 8px 32px rgba(0,0,0,.06);
+      transition: transform .5s var(--ease-out-expo), box-shadow .5s;
+    }
+
+    .gallery-item:hover {
+      transform: scale(1.02) translateY(-5px);
+      box-shadow: 0 16px 48px rgba(0,0,0,.15);
+      z-index: 10;
     }
 
     .gallery-item img {
-      width: 100%;
+      height: 100%;
+      width: auto;
+      object-fit: cover;
       display: block;
-      transition: transform .7s var(--ease-out-expo), filter .5s;
+      transition: transform .8s var(--ease-out-expo);
     }
 
-    .gallery-item:hover img {
-      transform: scale(1.07);
-      filter: brightness(1.08) saturate(1.1);
+    @keyframes galleryScroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
     }
 
-    /* Shine sweep on hover */
-    .gallery-item::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(105deg,
-        transparent 40%,
-        rgba(255,255,255,.18) 50%,
-        transparent 60%);
-      opacity: 0;
-      transform: translateX(-100%);
-      transition: opacity .3s, transform 0s;
-      pointer-events: none;
-      border-radius: var(--r);
+    @media (max-width: 900px) {
+      .gallery-item { height: 280px; }
+      .gallery-track { animation-duration: 40s; }
     }
-
-    .gallery-item:hover::after {
-      opacity: 1;
-      transform: translateX(120%);
-      transition: opacity .3s, transform .6s var(--ease-out-expo);
-    }
-
-    .gallery-item-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(6,20,16,.85) 0%, transparent 55%);
-      opacity: 0;
-      transition: opacity .5s;
-      display: flex;
-      align-items: flex-end;
-      padding: 1.1rem;
-    }
-
-    .gallery-item:hover .gallery-item-overlay { opacity: 1; }
-
-    .gallery-item-label {
-      font-size: .75rem;
-      font-weight: 600;
-      color: rgba(255,255,255,.9);
-      letter-spacing: .06em;
       text-transform: uppercase;
       transform: translateY(6px);
       transition: transform .4s var(--ease-out-expo);
@@ -1208,20 +1297,20 @@
       position: absolute;
       top: 0; right: 0;
       width: 80%;
-      height: 82%;
-      object-fit: cover;
+      height: auto;
       border-radius: 20px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.1);
     }
 
     .about-img-accent {
       position: absolute;
       bottom: 0; left: 0;
-      width: 52%;
-      height: 52%;
+      width: 35%;
+      aspect-ratio: 4 / 5;
       object-fit: cover;
       border-radius: 16px;
-      border: 4px solid var(--white);
       box-shadow: 0 12px 40px rgba(0,0,0,.1);
+      z-index: 2;
     }
 
     .about-chip {
@@ -1353,25 +1442,40 @@
     .contact-row-val { font-size: .95rem; font-weight: 600; color: var(--text); }
 
     .wa-btn {
-      display: inline-flex;
+      display: flex;
       align-items: center;
-      gap: .7rem;
-      margin-top: 2rem;
+      justify-content: center;
+      gap: .8rem;
       background: #25D366;
       color: #fff;
-      padding: .9rem 1.75rem;
+      padding: 1rem 2rem;
       border-radius: 50px;
       font-weight: 700;
-      font-size: .95rem;
+      font-size: 1rem;
       text-decoration: none;
-      transition: transform .3s var(--ease-spring), box-shadow .3s;
-      box-shadow: 0 6px 28px rgba(37,211,102,.35);
+      transition: transform .3s var(--ease-spring), box-shadow .3s, background .3s;
+      box-shadow: 0 8px 30px rgba(37,211,102,.3);
       cursor: none;
+      width: 100%;
+      max-width: 320px;
     }
 
-    .wa-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 36px rgba(37,211,102,.45); }
+    .wa-btn:hover { 
+      transform: translateY(-4px); 
+      box-shadow: 0 12px 40px rgba(37,211,102,.4);
+      background: #20ba5a;
+    }
 
-    .wa-btn svg { width:22px; height:22px; fill:#fff; }
+    .wa-btn svg { width:24px; height:24px; fill:#fff; }
+
+    .contact-cta-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.25rem;
+      margin-top: 3rem;
+      width: 100%;
+    }
 
 
 
@@ -1648,9 +1752,9 @@
   </div>
 
   <div class="hero-visual">
-    <img class="hero-img-a" src="657919180_1280826124145492_6814228166292964486_n.jpg" alt="Óptica Lentes de Tassara" />
-    <img class="hero-img-b" src="658121967_1375482894611355_2004135564598168440_n.jpg" alt="Monturas" />
-    <img class="hero-img-c" src="656630389_1889846161723368_8636683289092002349_n.jpg" alt="Lentes" />
+    <img class="hero-img-a" src="foto para portada.jpeg" alt="Óptica Lentes de Tassara" />
+    <img class="hero-img-b" src="foto 2.jpeg" alt="Monturas" />
+    <img class="hero-img-c" src="foto 3.jpeg" alt="Lentes" />
     <div class="hero-badge-float">
       <div class="badge-icon">
         <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
@@ -1658,6 +1762,41 @@
       <div>
         <div class="badge-text-label">Garantía total</div>
         <div class="badge-text-val">En todos los lentes</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── ABOUT ──────────────────────────────────────── -->
+<section id="nosotros" class="section">
+  <div class="about-grid">
+    <div class="about-img-wrap fade-up">
+      <img class="about-img-main" src="tecnología panal.jpeg" alt="Tecnología Panal" />
+      <img class="about-img-accent" src="656630389_1889846161723368_8636683289092002349_n.jpg" alt="Atención" />
+      <div class="about-chip">+5 años en Arequipa</div>
+    </div>
+    <div class="about-content">
+      <span class="section-tag">Quiénes somos</span>
+      <h2 class="section-h2 fade-up">Una óptica con <em style="font-style:italic;color:var(--g2)">historia</em><br />y propósito</h2>
+      <p class="fade-up stagger-1">Óptica Lentes de Tassara nació con una misión clara: brindar comodidad y bienestar visual a cada persona que confía en nosotros. En más de 5 años desde nuestra sede en Yanahuara, Arequipa, hemos construido una comunidad de clientes satisfechos.</p>
+      <p class="fade-up stagger-2">Nuestro equipo combina años de experiencia con equipos modernos de diagnóstico y un taller de corte propio, garantizando que cada lente sea perfecto antes de llegar a tus manos.</p>
+      <div class="about-pillars">
+        <div class="pillar fade-up stagger-2">
+          <div class="pillar-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+          Ubicados en Av. Lima 105, Yanahuara, Arequipa
+        </div>
+        <div class="pillar fade-up stagger-3">
+          <div class="pillar-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+          Más de 5 años de trayectoria en la región
+        </div>
+        <div class="pillar fade-up stagger-4">
+          <div class="pillar-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+          Taller propio de corte y armado de lentes
+        </div>
+        <div class="pillar fade-up stagger-5">
+          <div class="pillar-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+          Atención de lunes a sábado, 9am a 6pm
+        </div>
       </div>
     </div>
   </div>
@@ -1734,6 +1873,29 @@
   </div>
 
   <div class="products-grid">
+    
+    <!-- Lunas Trio Terapéutico -->
+    <div class="product-card fade-scale">
+      <div class="product-card-img">
+        <img src="trio terapeutico.jpeg" alt="Lunas Trio Terapéutico" />
+        <div class="product-card-img-overlay">
+          <span class="product-overlay-cta">Ver producto <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
+      </div>
+      <div class="product-card-body">
+        <span class="product-tag">Terapéutico</span>
+        <h3 class="product-name">Lunas Trio Terapéutico</h3>
+        <p class="product-desc">
+          • <strong>Filtro Amarillo (450nm)</strong>: Incrementa el contraste y profundidad.<br>
+          • <strong>Filtro Naranja (500nm)</strong>: Filtra luz azul y reduce deslumbramiento.<br>
+          • <strong>Filtro Rojo (550nm)</strong>: Protección máxima para alta sensibilidad visual.
+        </p>
+      </div>
+      <div class="product-footer">
+        <span class="product-badge"><span class="product-badge-dot"></span>Especializado</span>
+        <a href="https://wa.me/51973589526?text=Hola,%20quisiera%20m%C3%A1s%20informaci%C3%B3n%20sobre%20las%20Lunas%20Trio%20Terap%C3%A9utico" target="_blank" class="product-cta-btn">Consultar <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+    </div>
 
     <!-- Lunas en Bicarbonato -->
     <div class="product-card fade-scale">
@@ -1751,6 +1913,98 @@
       <div class="product-footer">
         <span class="product-badge"><span class="product-badge-dot"></span>Disponible</span>
         <a href="https://wa.me/51973589526?text=Hola,%20quisiera%20m%C3%A1s%20informaci%C3%B3n%20sobre%20Lunas%20en%20Policarbonato%20(Bajo%20Stock)" target="_blank" class="product-cta-btn">Consultar <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+    </div>
+
+    <!-- Lunas Saphir Retilens -->
+    <div class="product-card fade-scale stagger-1">
+      <div class="product-card-img">
+        <img src="saphir.png" alt="Lunas Saphir Retilens" />
+        <div class="product-card-img-overlay">
+          <span class="product-overlay-cta">Ver producto <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
+      </div>
+      <div class="product-card-body">
+        <span class="product-tag">Nanotecnología</span>
+        <h3 class="product-name">Lunas Saphir Retilens</h3>
+        <p class="product-desc">
+          • <strong>Tecnología Pantek®</strong>: Estructura hexagonal para visión HD.<br>
+          • <strong>Protección UV 420</strong>: Bloqueo máximo de radiación solar.<br>
+          • <strong>Tratamiento Saphir</strong>: Repele agua, grasa y suciedad.
+        </p>
+      </div>
+      <div class="product-footer">
+        <span class="product-badge"><span class="product-badge-dot"></span>Premium</span>
+        <a href="https://wa.me/51973589526?text=Hola,%20quisiera%20m%C3%A1s%20informaci%C3%B3n%20sobre%20las%20Lunas%20Saphir%20Retilens" target="_blank" class="product-cta-btn">Consultar <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+    </div>
+
+    <!-- Lunas Transitions -->
+    <div class="product-card fade-scale stagger-2">
+      <div class="product-card-img">
+        <img src="transitions.webp" alt="Lunas Transitions" />
+        <div class="product-card-img-overlay">
+          <span class="product-overlay-cta">Ver producto <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
+      </div>
+      <div class="product-card-body">
+        <span class="product-tag">Fotosensibles</span>
+        <h3 class="product-name">Lunas Transitions®</h3>
+        <p class="product-desc">
+          • <strong>GEN S™</strong>: Activación en segundos y 8 colores vibrantes.<br>
+          • <strong>XTRACTIVE</strong>: Extra oscuras, ideales para conducir.<br>
+          • <strong>XTRACTIVE Polarized™</strong>: Lo mejor contra el resplandor solar.
+        </p>
+      </div>
+      <div class="product-footer">
+        <span class="product-badge"><span class="product-badge-dot"></span>Alta Gama</span>
+        <a href="https://wa.me/51973589526?text=Hola,%20quisiera%20m%C3%A1s%20informaci%C3%B3n%20sobre%20las%20Lunas%20Transitions" target="_blank" class="product-cta-btn">Consultar <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+    </div>
+
+    <!-- Lunas Tesseler -->
+    <div class="product-card fade-scale stagger-3">
+      <div class="product-card-img">
+        <img src="TESSELER.jpg" alt="Lunas Tesseler" />
+        <div class="product-card-img-overlay">
+          <span class="product-overlay-cta">Ver producto <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
+      </div>
+      <div class="product-card-body">
+        <span class="product-tag">Diseño Panal</span>
+        <h3 class="product-name">Lunas Tesseler</h3>
+        <p class="product-desc">
+          • <strong>Diseño Panal</strong>: Máxima ligereza y claridad visual.<br>
+          • <strong>Protección Blue R420</strong>: Bloqueo de luz azul y rayos UV.<br>
+          • <strong>Tecnología MR-8</strong>: Resistencia superior e hidrofóbica.
+        </p>
+      </div>
+      <div class="product-footer">
+        <span class="product-badge"><span class="product-badge-dot"></span>Alta Tecnología</span>
+        <a href="https://wa.me/51973589526?text=Hola,%20quisiera%20m%C3%A1s%20informaci%C3%B3n%20sobre%20las%20Lunas%20Tesseler" target="_blank" class="product-cta-btn">Consultar <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+    </div>
+
+    <!-- Lunas Polarizadas -->
+    <div class="product-card fade-scale">
+      <div class="product-card-img">
+        <img src="polar.jpg" alt="Lunas Polarizadas" />
+        <div class="product-card-img-overlay">
+          <span class="product-overlay-cta">Ver producto <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
+      </div>
+      <div class="product-card-body">
+        <span class="product-tag">Protección Solar</span>
+        <h3 class="product-name">Lunas Polarizadas</h3>
+        <p class="product-desc">
+          • <strong>Antirreflejo 99.9%</strong>: Elimina destellos de asfalto y agua.<br>
+          • <strong>Protección UV 400</strong>: Bloqueo total contra radiación solar.<br>
+          • <strong>Graduación Óptica</strong>: Incluye medida para una visión de sol perfecta.
+        </p>
+      </div>
+      <div class="product-footer">
+        <span class="product-badge"><span class="product-badge-dot"></span>Con Medida</span>
+        <a href="https://wa.me/51973589526?text=Hola,%20quisiera%20m%C3%A1s%20informaci%C3%B3n%20sobre%20las%20Lunas%20Polarizadas" target="_blank" class="product-cta-btn">Consultar <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
       </div>
     </div>
 
@@ -1854,48 +2108,6 @@
 
 
 
-<!-- ─── SERVICES STRIP ────────────────────────────── -->
-<div class="services-strip">
-  <div class="services-strip-inner">
-    <h2 class="fade-up">Servicios que <em>marcan la diferencia</em></h2>
-    <div class="services-list">
-
-      <div class="service-item fade-up">
-        <div class="service-item-icon">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/></svg>
-        </div>
-        <h3>Medición de Vista</h3>
-        <p>Examen visual completo con equipos calibrados para determinar tu graduación exacta.</p>
-      </div>
-
-      <div class="service-item fade-up stagger-1">
-        <div class="service-item-icon">
-          <svg viewBox="0 0 24 24"><circle cx="9" cy="7" r="4"/><path d="M1 20v-2a4 4 0 014-4h8a4 4 0 014 4v2"/></svg>
-        </div>
-        <h3>Asesoría Personalizada</h3>
-        <p>Te orientamos para elegir la montura y el lente que mejor se adaptan a tu estilo de vida.</p>
-      </div>
-
-      <div class="service-item fade-up stagger-2">
-        <div class="service-item-icon">
-          <svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
-        </div>
-        <h3>Corte y Armado</h3>
-        <p>Fabricamos tus lentes en taller propio con precisión milimétrica y acabados perfectos.</p>
-      </div>
-
-      <div class="service-item fade-up stagger-3">
-        <div class="service-item-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        </div>
-        <h3>Garantía Completa</h3>
-        <p>Todos nuestros lentes incluyen garantía. Si hay algún problema, lo resolvemos sin costo.</p>
-      </div>
-
-    </div>
-  </div>
-</div>
-
 <!-- ─── GALLERY ────────────────────────────────────── -->
 <section id="galeria" class="section">
   <div class="section-header-row">
@@ -1905,54 +2117,42 @@
     <p class="section-desc fade-up stagger-2">Visítanos en Av. Lima 105, Yanahuara. Un espacio cómodo y moderno diseñado para tu bienestar.</p>
   </div>
 
-  <div class="gallery-masonry">
-    <div class="gallery-item fade-up"><img src="669771372_17956525578087793_3439255894938088374_n.jpg" alt="Galería Tassara" /></div>
-    <div class="gallery-item fade-up stagger-1"><img src="670405295_1309576047682474_117443659182299563_n.jpg" alt="Galería Tassara" /></div>
-    <div class="gallery-item fade-up stagger-2"><img src="656423669_2412390052554732_3494429892471849400_n.jpg" alt="Galería Tassara" /></div>
-    <div class="gallery-item fade-up stagger-3"><img src="671213193_1488850359561149_8004361206282631414_n.jpg" alt="Galería Tassara" /></div>
-    <div class="gallery-item fade-up"><img src="657495096_2756251424729596_7998129600955203132_n.jpg" alt="Galería Tassara" /></div>
-    <div class="gallery-item fade-up stagger-1"><img src="659648848_17955809739087793_7572819373551712074_n.jpg" alt="Galería Tassara" /></div>
-    <div class="gallery-item fade-up stagger-2"><img src="657810251_940428708971625_594751839703429780_n.jpg" alt="Galería Tassara" /></div>
-    <div class="gallery-item fade-up stagger-3"><img src="660168209_2375873462905298_3727072125569766096_n.jpg" alt="Galería Tassara" /></div>
-    <div class="gallery-item fade-up"><img src="658912930_1399974128550959_6778859887004630786_n.jpg" alt="Galería Tassara" /></div>
-    <div class="gallery-item fade-up stagger-1"><img src="669490755_17956188405087793_5729729876039872270_n.jpg" alt="Galería Tassara" /></div>
-    <div class="gallery-item fade-up stagger-2"><img src="658979232_1615971033006311_4135881325433599051_n.jpg" alt="Galería Tassara" /></div>
-    <div class="gallery-item fade-up stagger-3"><img src="659787264_1672514567238282_2807999602052851057_n.jpg" alt="Galería Tassara" /></div>
-    <div class="gallery-item fade-up"><img src="661585542_1976718569718870_5688380568345839057_n.jpg" alt="Galería Tassara" /></div>
-  </div>
-</section>
-
-<!-- ─── ABOUT ──────────────────────────────────────── -->
-<section id="nosotros" class="section">
-  <div class="about-grid">
-    <div class="about-img-wrap fade-up">
-      <img class="about-img-main" src="661585542_1976718569718870_5688380568345839057_n.jpg" alt="Óptica Tassara" />
-      <img class="about-img-accent" src="656630389_1889846161723368_8636683289092002349_n.jpg" alt="Atención" />
-      <div class="about-chip">+5 años en Arequipa</div>
-    </div>
-    <div class="about-content">
-      <span class="section-tag">Quiénes somos</span>
-      <h2 class="section-h2 fade-up">Una óptica con <em style="font-style:italic;color:var(--g2)">historia</em><br />y propósito</h2>
-      <p class="fade-up stagger-1">Óptica Lentes de Tassara nació con una misión clara: brindar comodidad y bienestar visual a cada persona que confía en nosotros. En más de 5 años desde nuestra sede en Yanahuara, Arequipa, hemos construido una comunidad de clientes satisfechos.</p>
-      <p class="fade-up stagger-2">Nuestro equipo combina años de experiencia con equipos modernos de diagnóstico y un taller de corte propio, garantizando que cada lente sea perfecto antes de llegar a tus manos.</p>
-      <div class="about-pillars">
-        <div class="pillar fade-up stagger-2">
-          <div class="pillar-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-          Ubicados en Av. Lima 105, Yanahuara, Arequipa
-        </div>
-        <div class="pillar fade-up stagger-3">
-          <div class="pillar-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-          Más de 5 años de trayectoria en la región
-        </div>
-        <div class="pillar fade-up stagger-4">
-          <div class="pillar-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-          Taller propio de corte y armado de lentes
-        </div>
-        <div class="pillar fade-up stagger-5">
-          <div class="pillar-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-          Atención de lunes a sábado, 9am a 6pm
-        </div>
-      </div>
+  <div class="gallery-overflow">
+    <div class="gallery-track">
+      <!-- Original set -->
+      <div class="gallery-item"><img src="foto 5.jpeg" alt="Local" /></div>
+      <div class="gallery-item"><img src="670405295_1309576047682474_117443659182299563_n.jpg" alt="Atención" /></div>
+      <div class="gallery-item"><img src="656423669_2412390052554732_3494429892471849400_n.jpg" alt="Lentes" /></div>
+      <div class="gallery-item"><img src="671213193_1488850359561149_8004361206282631414_n.jpg" alt="Examen" /></div>
+      <div class="gallery-item"><img src="657495096_2756251424729596_7998129600955203132_n.jpg" alt="Variedad" /></div>
+      <div class="gallery-item"><img src="659648848_17955809739087793_7572819373551712074_n.jpg" alt="Tassara" /></div>
+      <div class="gallery-item"><img src="657810251_940428708971625_594751839703429780_n.jpg" alt="Arequipa" /></div>
+      <div class="gallery-item"><img src="660168209_2375873462905298_3727072125569766096_n.jpg" alt="Calidad" /></div>
+      <div class="gallery-item"><img src="658912930_1399974128550959_6778859887004630786_n.jpg" alt="Diseño" /></div>
+      <div class="gallery-item"><img src="foto 4.jpeg" alt="Tecnología" /></div>
+      <div class="gallery-item"><img src="658979232_1615971033006311_4135881325433599051_n.jpg" alt="Detalle" /></div>
+      <div class="gallery-item"><img src="659787264_1672514567238282_2807999602052851057_n.jpg" alt="Óptica" /></div>
+      <div class="gallery-item"><img src="661585542_1976718569718870_5688380568345839057_n.jpg" alt="Tassara" /></div>
+      <div class="gallery-item"><img src="foto 6.jpeg" alt="Galería" /></div>
+      <div class="gallery-item"><img src="foto 7.jpeg" alt="Galería" /></div>
+      <div class="gallery-item"><img src="foto 8.jpeg" alt="Galería" /></div>
+      <!-- Duplicate for seamless loop -->
+      <div class="gallery-item"><img src="foto 5.jpeg" alt="Local" /></div>
+      <div class="gallery-item"><img src="670405295_1309576047682474_117443659182299563_n.jpg" alt="Atención" /></div>
+      <div class="gallery-item"><img src="656423669_2412390052554732_3494429892471849400_n.jpg" alt="Lentes" /></div>
+      <div class="gallery-item"><img src="671213193_1488850359561149_8004361206282631414_n.jpg" alt="Examen" /></div>
+      <div class="gallery-item"><img src="657495096_2756251424729596_7998129600955203132_n.jpg" alt="Variedad" /></div>
+      <div class="gallery-item"><img src="659648848_17955809739087793_7572819373551712074_n.jpg" alt="Tassara" /></div>
+      <div class="gallery-item"><img src="657810251_940428708971625_594751839703429780_n.jpg" alt="Arequipa" /></div>
+      <div class="gallery-item"><img src="660168209_2375873462905298_3727072125569766096_n.jpg" alt="Calidad" /></div>
+      <div class="gallery-item"><img src="658912930_1399974128550959_6778859887004630786_n.jpg" alt="Diseño" /></div>
+      <div class="gallery-item"><img src="foto 4.jpeg" alt="Tecnología" /></div>
+      <div class="gallery-item"><img src="658979232_1615971033006311_4135881325433599051_n.jpg" alt="Detalle" /></div>
+      <div class="gallery-item"><img src="659787264_1672514567238282_2807999602052851057_n.jpg" alt="Óptica" /></div>
+      <div class="gallery-item"><img src="661585542_1976718569718870_5688380568345839057_n.jpg" alt="Tassara" /></div>
+      <div class="gallery-item"><img src="foto 6.jpeg" alt="Galería" /></div>
+      <div class="gallery-item"><img src="foto 7.jpeg" alt="Galería" /></div>
+      <div class="gallery-item"><img src="foto 8.jpeg" alt="Galería" /></div>
     </div>
   </div>
 </section>
@@ -1975,7 +2175,7 @@
             <div class="contact-row-val">Av. Lima 105, Yanahuara, Arequipa</div>
           </div>
         </div>
-        <div class="contact-row fade-up stagger-2">
+        <div class="contact-row fade-up stagger-2" onclick="openPhoneSelector()" style="cursor: none;">
           <div class="contact-row-icon">
             <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.22 1.18 2 2 0 012.18 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.09a16 16 0 006 6l.56-.56a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
           </div>
@@ -1993,7 +2193,7 @@
             <div class="contact-row-val">Lun – Sáb: 9:00 am – 6:00 pm</div>
           </div>
         </div>
-        <div class="contact-row fade-up stagger-4">
+        <a href="https://www.instagram.com/optica_lentes_de_tassara_eirl" target="_blank" class="contact-row fade-up stagger-4" style="text-decoration: none; color: inherit;">
           <div class="contact-row-icon">
             <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
           </div>
@@ -2001,7 +2201,17 @@
             <div class="contact-row-label">Instagram</div>
             <div class="contact-row-val">@optica_lentes_de_tassara_eirl</div>
           </div>
-        </div>
+        </a>
+
+        <a href="https://www.tiktok.com/@lentes.de.tassara" target="_blank" class="contact-row fade-up stagger-5" style="text-decoration: none; color: inherit;">
+          <div class="contact-row-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
+          </div>
+          <div>
+            <div class="contact-row-label">TikTok</div>
+            <div class="contact-row-val">@lentes.de.tassara</div>
+          </div>
+        </a>
       </div>
 
       <!-- Google Maps embed -->
@@ -2014,13 +2224,23 @@
           title="Ubicación Óptica Lentes de Tassara"></iframe>
       </div>
 
-      <a class="wa-btn fade-up stagger-5" href="https://wa.me/51973589526" target="_blank">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
-          <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.553 4.116 1.52 5.845L.057 23.272a.75.75 0 00.916.916l5.432-1.463A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.955 0-3.787-.5-5.384-1.376l-.386-.219-3.993 1.076 1.076-3.995-.22-.386A9.944 9.944 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
-        </svg>
-        Escribir por WhatsApp
-      </a>
+      <div class="contact-cta-wrap">
+        <a class="wa-btn fade-up stagger-5" href="https://wa.me/51973589526" target="_blank">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+            <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.553 4.116 1.52 5.845L.057 23.272a.75.75 0 00.916.916l5.432-1.463A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.955 0-3.787-.5-5.384-1.376l-.386-.219-3.993 1.076 1.076-3.995-.22-.386A9.944 9.944 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+          </svg>
+          Escribir por WhatsApp
+        </a>
+
+        <a class="wa-btn fade-up stagger-5" href="https://whatsapp.com/channel/0029VbCjgJv47XeFPIVdpP0v" target="_blank" style="background: var(--g2);">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+            <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.553 4.116 1.52 5.845L.057 23.272a.75.75 0 00.916.916l5.432-1.463A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.955 0-3.787-.5-5.384-1.376l-.386-.219-3.993 1.076 1.076-3.995-.22-.386A9.944 9.944 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+          </svg>
+          Unirse al canal de WhatsApp
+        </a>
+      </div>
     </div>
 
   </div>
@@ -2036,6 +2256,11 @@
         <a href="https://www.instagram.com/optica_lentes_de_tassara_eirl" target="_blank" title="Instagram" aria-label="Instagram">
           <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor">
             <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+          </svg>
+        </a>
+        <a href="https://www.tiktok.com/@lentes.de.tassara" target="_blank" title="TikTok" aria-label="TikTok">
+          <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor">
+            <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.17-2.84-.6-4.13-1.29-.13 1.08-.2 2.16-.2 3.24 0 1.51-.31 3.03-.98 4.39-.67 1.36-1.77 2.5-3.15 3.16-1.38.66-2.9 1-4.41 1-1.51 0-3.03-.34-4.39-1.01-1.36-.67-2.5-1.77-3.16-3.15C1.35 15.11 1.01 13.59 1 12.08c.01-1.51.35-3.03 1.02-4.39.67-1.36 1.77-2.5 3.15-3.16a9.052 9.052 0 0 1 4.41-1.02c.02 1.31.02 2.61.02 3.91-1.31-.02-2.61.02-3.87.6a4.846 4.846 0 0 0-2.3 2.3c-.58 1.26-.62 2.56-.6 3.87.02 1.31.06 2.61.64 3.87.58 1.26 1.35 2.3 2.61 2.88.63.29 1.3.43 1.97.5a4.42 4.42 0 0 0 1.9-.13 5.03 5.03 0 0 0 3.15-3.16c.66-1.38.98-2.9.98-4.41V0h.03z"/>
           </svg>
         </a>
         <a href="https://wa.me/51973589526" target="_blank" title="WhatsApp" aria-label="WhatsApp">
@@ -2090,7 +2315,36 @@
 </a>
 
 <!-- ═══ SCRIPTS ══════════════════════════════════════ -->
+<!-- ── Contact Selector Overlay ── -->
+<div id="phone-selector-overlay" class="contact-overlay" onclick="closePhoneSelector()">
+  <div class="contact-sheet" onclick="event.stopPropagation()">
+    <h3>¿Cómo deseas contactarnos?</h3>
+    <div class="contact-options">
+      <a href="tel:+51973589526" class="contact-opt-btn opt-call">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.22 1.18 2 2 0 012.18 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.09a16 16 0 006 6l.56-.56a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        Llamar por teléfono
+      </a>
+      <a href="https://wa.me/51973589526" target="_blank" class="contact-opt-btn opt-wa" onclick="closePhoneSelector()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.123.553 4.116 1.52 5.845L.057 23.272a.75.75 0 00.916.916l5.432-1.463A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.955 0-3.787-.5-5.384-1.376l-.386-.219-3.993 1.076 1.076-3.995-.22-.386A9.944 9.944 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        Enviar WhatsApp
+      </a>
+    </div>
+    <button onclick="closePhoneSelector()" class="contact-close-btn">Tal vez después</button>
+  </div>
+</div>
+
 <script>
+/* ── Phone Selector Logic ── */
+function openPhoneSelector() {
+  document.getElementById('phone-selector-overlay').classList.add('visible');
+  document.body.style.overflow = 'hidden';
+}
+function closePhoneSelector() {
+  document.getElementById('phone-selector-overlay').classList.remove('visible');
+  document.body.style.overflow = '';
+}
+
+/* ── Existing Scripts ── */
 /* ── Preloader ─────────────────────────────────── */
 window.addEventListener('load', () => {
   setTimeout(() => {
