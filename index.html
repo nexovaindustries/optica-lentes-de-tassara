@@ -1226,8 +1226,10 @@
       display: flex;
       gap: 20px;
       width: max-content;
-      animation: galleryScroll 50s linear infinite;
+      animation: galleryScroll 80s linear infinite;
       will-change: transform;
+      transform-style: preserve-3d;
+      backface-visibility: hidden;
     }
 
     .gallery-overflow:hover .gallery-track {
@@ -1261,8 +1263,8 @@
     }
 
     @keyframes galleryScroll {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
+      0% { transform: translate3d(0, 0, 0); }
+      100% { transform: translate3d(-50%, 0, 0); }
     }
 
     @media (max-width: 900px) {
