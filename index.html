@@ -1214,70 +1214,143 @@
     ═══════════════════════════════════════════ */
     #galeria { background: var(--cream); }
 
-    .gallery-overflow {
-      width: 100vw;
-      margin-left: -5vw;
-      overflow: hidden;
+    .carousel-3d-wrap {
       position: relative;
-      padding: 1rem 0;
-    }
-
-    .gallery-track {
+      width: 100%;
+      height: 550px;
+      perspective: 1500px;
+      overflow: hidden;
       display: flex;
-      gap: 20px;
-      padding-right: 20px;
-      width: max-content;
-      animation: galleryScroll 45s linear infinite;
-      will-change: transform;
-      transform-style: preserve-3d;
-      backface-visibility: hidden;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2rem;
     }
 
-    .gallery-overflow:hover .gallery-track {
-      animation-play-state: paused;
-    }
-
-    .gallery-item {
-      flex-shrink: 0;
-      height: 380px;
-      width: auto;
-      border-radius: var(--r);
-      overflow: hidden;
+    .carousel-3d-track {
       position: relative;
-      background: #eee;
-      box-shadow: 0 8px 32px rgba(0,0,0,.06);
-      transition: transform .5s var(--ease-out-expo), box-shadow .5s;
-    }
-
-    .gallery-item:hover {
-      transform: scale(1.02) translateY(-5px);
-      box-shadow: 0 16px 48px rgba(0,0,0,.15);
-      z-index: 10;
-    }
-
-    .gallery-item img {
+      width: 100%;
       height: 100%;
-      width: auto;
+      transform-style: preserve-3d;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .carousel-3d-item {
+      position: absolute;
+      width: 320px;
+      height: 450px;
+      background: var(--white);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: all 0.7s var(--ease-out-expo);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+      cursor: none;
+      user-select: none;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .carousel-3d-item img {
+      width: 100%;
+      height: 100%;
       object-fit: cover;
-      display: block;
-      transition: transform .8s var(--ease-out-expo);
+      pointer-events: none;
     }
 
-    @keyframes galleryScroll {
-      0% { transform: translate3d(0, 0, 0); }
-      100% { transform: translate3d(-50%, 0, 0); }
+    /* States */
+    .carousel-3d-item.active {
+      transform: translate3d(0, 0, 0) scale(1.1);
+      z-index: 10;
+      opacity: 1;
+      filter: none;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.25);
     }
 
-    @media (max-width: 900px) {
-      .gallery-item { height: 280px; }
-      .gallery-track { animation-duration: 40s; }
-    }
-      text-transform: uppercase;
-      transform: translateY(6px);
-      transition: transform .4s var(--ease-out-expo);
+    .carousel-3d-item.prev {
+      transform: translate3d(-85%, 0, -300px) rotateY(45deg);
+      z-index: 5;
+      opacity: 0.6;
+      filter: blur(2px) brightness(0.7);
     }
 
-    .gallery-item:hover .gallery-item-label { transform: translateY(0); }
+    .carousel-3d-item.next {
+      transform: translate3d(85%, 0, -300px) rotateY(-45deg);
+      z-index: 5;
+      opacity: 0.6;
+      filter: blur(2px) brightness(0.7);
+    }
+
+    /* Outer slides */
+    .carousel-3d-item.far-prev {
+      transform: translate3d(-140%, 0, -600px) rotateY(60deg);
+      z-index: 2;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .carousel-3d-item.far-next {
+      transform: translate3d(140%, 0, -600px) rotateY(-60deg);
+      z-index: 2;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .carousel-3d-item.hidden {
+      opacity: 0;
+      transform: translate3d(0, 0, -1000px);
+      pointer-events: none;
+    }
+
+    /* Buttons — based on user's reference */
+    .carousel-btn {
+      appearance: none;
+      background: var(--g2);
+      border: none;
+      color: var(--white);
+      position: absolute;
+      font-size: 1.5rem;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      top: 50%;
+      transform: translateY(-50%);
+      transition: all 0.3s;
+      opacity: 1;
+      z-index: 100;
+      border-radius: 50%;
+      cursor: none;
+      box-shadow: 0 8px 32px rgba(26,92,56,0.3);
+    }
+
+    .carousel-btn:hover {
+      background: var(--g1);
+      transform: translateY(-50%) scale(1.1);
+      box-shadow: 0 12px 40px rgba(26,92,56,0.5);
+    }
+
+    .btn-prev { left: 4vw; }
+    .btn-next { right: 4vw; }
+
+    .carousel-btn svg {
+      width: 24px;
+      height: 24px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    @media (max-width: 768px) {
+      .carousel-3d-wrap { height: 450px; }
+      .carousel-3d-item { width: 260px; height: 360px; }
+      .carousel-3d-item.prev { transform: translate3d(-70%, 0, -300px) rotateY(45deg); }
+      .carousel-3d-item.next { transform: translate3d(70%, 0, -300px) rotateY(-45deg); }
+      .carousel-btn { width: 50px; height: 50px; font-size: 1.5rem; }
+    }
 
     /* ═══════════════════════════════════════════
        ABOUT
@@ -1299,8 +1372,9 @@
     .about-img-main {
       position: absolute;
       top: 0; right: 0;
-      width: 80%;
-      height: auto;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
       border-radius: 20px;
       box-shadow: 0 20px 50px rgba(0,0,0,0.1);
     }
@@ -1774,7 +1848,7 @@
 <section id="nosotros" class="section">
   <div class="about-grid">
     <div class="about-img-wrap fade-up">
-      <img class="about-img-main" src="tecnología panal.jpeg" alt="Tecnología Panal" />
+      <img class="about-img-main" src="661585542_1976718569718870_5688380568345839057_n.jpg" alt="Tecnología Panal" />
       <img class="about-img-accent" src="foto 2.jpeg" alt="Atención" />
       <div class="about-chip">+5 años en Arequipa</div>
     </div>
@@ -1988,17 +2062,17 @@
       </div>
     </div>
 
-    <!-- Lunas Polarizadas -->
+    <!-- Lunas UV 400 Polarizadas Espejadas -->
     <div class="product-card fade-scale">
       <div class="product-card-img">
-        <img src="polar.jpg" alt="Lunas Polarizadas" />
+        <img src="polar.jpg" alt="Lunas UV 400 Polarizadas Espejadas" />
         <div class="product-card-img-overlay">
           <span class="product-overlay-cta">Ver producto <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
         </div>
       </div>
       <div class="product-card-body">
         <span class="product-tag">Protección Solar</span>
-        <h3 class="product-name">Lunas Polarizadas</h3>
+        <h3 class="product-name">Lunas UV 400 Polarizadas Espejadas</h3>
         <p class="product-desc">
           • <strong>Antirreflejo 99.9%</strong>: Elimina destellos de asfalto y agua.<br>
           • <strong>Protección UV 400</strong>: Bloqueo total contra radiación solar.<br>
@@ -2007,7 +2081,7 @@
       </div>
       <div class="product-footer">
         <span class="product-badge"><span class="product-badge-dot"></span>Con Medida</span>
-        <a href="https://wa.me/51973589526?text=Hola,%20quisiera%20m%C3%A1s%20informaci%C3%B3n%20sobre%20las%20Lunas%20Polarizadas" target="_blank" class="product-cta-btn">Consultar <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        <a href="https://wa.me/51973589526?text=Hola,%20quisiera%20m%C3%A1s%20informaci%C3%B3n%20sobre%20las%20Lunas%20UV%20400%20Polarizadas%20Espejadas" target="_blank" class="product-cta-btn">Consultar <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
       </div>
     </div>
 
@@ -2120,43 +2194,33 @@
     <p class="section-desc fade-up stagger-2">Visítanos en Av. Lima 105, Yanahuara. Un espacio cómodo y moderno diseñado para tu bienestar.</p>
   </div>
 
-  <div class="gallery-overflow">
-    <div class="gallery-track">
-      <!-- Original set -->
-      <div class="gallery-item"><img src="foto 5.jpeg" alt="Local" /></div>
-      <div class="gallery-item"><img src="670405295_1309576047682474_117443659182299563_n.jpg" alt="Atención" /></div>
-      <div class="gallery-item"><img src="656423669_2412390052554732_3494429892471849400_n.jpg" alt="Lentes" /></div>
-      <div class="gallery-item"><img src="671213193_1488850359561149_8004361206282631414_n.jpg" alt="Examen" /></div>
-      <div class="gallery-item"><img src="657495096_2756251424729596_7998129600955203132_n.jpg" alt="Variedad" /></div>
-      <div class="gallery-item"><img src="659648848_17955809739087793_7572819373551712074_n.jpg" alt="Tassara" /></div>
-      <div class="gallery-item"><img src="657810251_940428708971625_594751839703429780_n.jpg" alt="Arequipa" /></div>
-      <div class="gallery-item"><img src="660168209_2375873462905298_3727072125569766096_n.jpg" alt="Calidad" /></div>
-      <div class="gallery-item"><img src="658912930_1399974128550959_6778859887004630786_n.jpg" alt="Diseño" /></div>
-      <div class="gallery-item"><img src="foto 4.jpeg" alt="Tecnología" /></div>
-      <div class="gallery-item"><img src="658979232_1615971033006311_4135881325433599051_n.jpg" alt="Detalle" /></div>
-      <div class="gallery-item"><img src="659787264_1672514567238282_2807999602052851057_n.jpg" alt="Óptica" /></div>
-      <div class="gallery-item"><img src="661585542_1976718569718870_5688380568345839057_n.jpg" alt="Tassara" /></div>
-      <div class="gallery-item"><img src="foto 6.jpeg" alt="Galería" /></div>
-      <div class="gallery-item"><img src="foto 7.jpeg" alt="Galería" /></div>
-      <div class="gallery-item"><img src="foto 8.jpeg" alt="Galería" /></div>
-      <!-- Duplicate for seamless loop -->
-      <div class="gallery-item"><img src="foto 5.jpeg" alt="Local" /></div>
-      <div class="gallery-item"><img src="670405295_1309576047682474_117443659182299563_n.jpg" alt="Atención" /></div>
-      <div class="gallery-item"><img src="656423669_2412390052554732_3494429892471849400_n.jpg" alt="Lentes" /></div>
-      <div class="gallery-item"><img src="671213193_1488850359561149_8004361206282631414_n.jpg" alt="Examen" /></div>
-      <div class="gallery-item"><img src="657495096_2756251424729596_7998129600955203132_n.jpg" alt="Variedad" /></div>
-      <div class="gallery-item"><img src="659648848_17955809739087793_7572819373551712074_n.jpg" alt="Tassara" /></div>
-      <div class="gallery-item"><img src="657810251_940428708971625_594751839703429780_n.jpg" alt="Arequipa" /></div>
-      <div class="gallery-item"><img src="660168209_2375873462905298_3727072125569766096_n.jpg" alt="Calidad" /></div>
-      <div class="gallery-item"><img src="658912930_1399974128550959_6778859887004630786_n.jpg" alt="Diseño" /></div>
-      <div class="gallery-item"><img src="foto 4.jpeg" alt="Tecnología" /></div>
-      <div class="gallery-item"><img src="658979232_1615971033006311_4135881325433599051_n.jpg" alt="Detalle" /></div>
-      <div class="gallery-item"><img src="659787264_1672514567238282_2807999602052851057_n.jpg" alt="Óptica" /></div>
-      <div class="gallery-item"><img src="661585542_1976718569718870_5688380568345839057_n.jpg" alt="Tassara" /></div>
-      <div class="gallery-item"><img src="foto 6.jpeg" alt="Galería" /></div>
-      <div class="gallery-item"><img src="foto 7.jpeg" alt="Galería" /></div>
-      <div class="gallery-item"><img src="foto 8.jpeg" alt="Galería" /></div>
+  <div class="carousel-3d-wrap">
+    <button class="carousel-btn btn-prev" id="prevBtn" aria-label="Anterior">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    
+    <div class="carousel-3d-track" id="carouselTrack">
+      <div class="carousel-3d-item"><img src="foto 5.jpeg" alt="Local" /></div>
+      <div class="carousel-3d-item"><img src="670405295_1309576047682474_117443659182299563_n.jpg" alt="Atención" /></div>
+      <div class="carousel-3d-item"><img src="656423669_2412390052554732_3494429892471849400_n.jpg" alt="Lentes" /></div>
+      <div class="carousel-3d-item"><img src="671213193_1488850359561149_8004361206282631414_n.jpg" alt="Examen" /></div>
+      <div class="carousel-3d-item"><img src="657495096_2756251424729596_7998129600955203132_n.jpg" alt="Variedad" /></div>
+      <div class="carousel-3d-item"><img src="659648848_17955809739087793_7572819373551712074_n.jpg" alt="Tassara" /></div>
+      <div class="carousel-3d-item"><img src="657810251_940428708971625_594751839703429780_n.jpg" alt="Arequipa" /></div>
+      <div class="carousel-3d-item"><img src="660168209_2375873462905298_3727072125569766096_n.jpg" alt="Calidad" /></div>
+      <div class="carousel-3d-item"><img src="658912930_1399974128550959_6778859887004630786_n.jpg" alt="Diseño" /></div>
+      <div class="carousel-3d-item"><img src="foto 4.jpeg" alt="Tecnología" /></div>
+      <div class="carousel-3d-item"><img src="658979232_1615971033006311_4135881325433599051_n.jpg" alt="Detalle" /></div>
+      <div class="carousel-3d-item"><img src="659787264_1672514567238282_2807999602052851057_n.jpg" alt="Óptica" /></div>
+      <div class="carousel-3d-item"><img src="661585542_1976718569718870_5688380568345839057_n.jpg" alt="Tassara" /></div>
+      <div class="carousel-3d-item"><img src="foto 6.jpeg" alt="Galería" /></div>
+      <div class="carousel-3d-item"><img src="foto 7.jpeg" alt="Galería" /></div>
+      <div class="carousel-3d-item"><img src="foto 8.jpeg" alt="Galería" /></div>
     </div>
+
+    <button class="carousel-btn btn-next" id="nextBtn" aria-label="Siguiente">
+      <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
   </div>
 </section>
 
@@ -2276,11 +2340,14 @@
     <div class="footer-col">
       <h4>Productos</h4>
       <ul>
-        <li><a href="#productos">Lunas de Bicarbonato</a></li>
         <li><a href="#productos">Lunas de Policarbonato</a></li>
+        <li><a href="#productos">Lunas NK</a></li>
+        <li><a href="#productos">Lunas Alto Índice de Refracción</a></li>
+        <li><a href="#productos">Lunas 1.60 MR 8</a></li>
+        <li><a href="#productos">Lunas Asférico Completo</a></li>
         <li><a href="#productos">Lunas Digitales</a></li>
         <li><a href="#productos">Lunas para Lente de Sol</a></li>
-        <li><a href="#productos">Lentes Ray-Ban</a></li>
+        <li><a href="#productos">Lunas Ray-Ban</a></li>
         <li><a href="#productos">Monturas</a></li>
       </ul>
     </div>
@@ -2480,6 +2547,65 @@ document.querySelectorAll('.btn, .wa-btn, .nav-cta').forEach(btn => {
   btn.addEventListener('mouseenter', () => { btn.style.transition = 'transform .1s'; });
 });
 
+/* ── 3D Carousel Logic ─────────────────────────── */
+const carouselTrack = document.getElementById('carouselTrack');
+const carouselItems = Array.from(document.querySelectorAll('.carousel-3d-item'));
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+let currentIndex = 0;
+
+function updateCarousel() {
+  carouselItems.forEach((item, index) => {
+    // Only remove carousel-specific classes to avoid breaking Intersection Observer
+    item.classList.remove('active', 'prev', 'next', 'far-prev', 'far-next', 'hidden');
+    
+    if (index === currentIndex) {
+      item.classList.add('active');
+    } else if (index === (currentIndex - 1 + carouselItems.length) % carouselItems.length) {
+      item.classList.add('prev');
+    } else if (index === (currentIndex + 1) % carouselItems.length) {
+      item.classList.add('next');
+    } else if (index === (currentIndex - 2 + carouselItems.length) % carouselItems.length) {
+      item.classList.add('far-prev');
+    } else if (index === (currentIndex + 2) % carouselItems.length) {
+      item.classList.add('far-next');
+    } else {
+      item.classList.add('hidden');
+    }
+  });
+}
+
+function moveCarousel(direction) {
+  currentIndex = (currentIndex + direction + carouselItems.length) % carouselItems.length;
+  updateCarousel();
+}
+
+prevBtn.addEventListener('click', () => moveCarousel(-1));
+nextBtn.addEventListener('click', () => moveCarousel(1));
+
+// Touch support for swipe
+let touchStartX = 0;
+carouselTrack.addEventListener('touchstart', e => {
+  touchStartX = e.touches[0].clientX;
+}, { passive: true });
+
+carouselTrack.addEventListener('touchend', e => {
+  const touchEndX = e.changedTouches[0].clientX;
+  const diff = touchStartX - touchEndX;
+  if (Math.abs(diff) > 50) {
+    moveCarousel(diff > 0 ? 1 : -1);
+  }
+}, { passive: true });
+
+// Initialize
+updateCarousel();
+
+// Update event listeners for cursor hover
+document.querySelectorAll('a, button, .product-card, .carousel-3d-item, .service-item, .stat-card')
+  .forEach(el => {
+    el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+    el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+  });
 
 </script>
 </body>
