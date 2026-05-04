@@ -146,7 +146,6 @@
 
     #preloader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
 
-    /* LED SVG */
     .pl-svg {
       width: 280px;
       height: auto;
@@ -154,7 +153,6 @@
       filter: drop-shadow(0 0 12px rgba(77,184,122,.7));
     }
 
-    /* All paths start invisible, LED glow sweeps left→right */
     .pl-led-path {
       stroke-dasharray: var(--dash);
       stroke-dashoffset: var(--dash);
@@ -163,19 +161,6 @@
 
     @keyframes ledDraw { to { stroke-dashoffset: 0; } }
 
-    /* Glow pulse after draw */
-    .pl-led-glow {
-      opacity: 0;
-      animation: ledDraw var(--dur, .4s) var(--delay, 0s) var(--ease-out-expo) forwards,
-                 ledGlow 1s calc(var(--delay, 0s) + var(--dur, .4s)) ease-in-out infinite alternate;
-    }
-
-    @keyframes ledGlow {
-      from { filter: drop-shadow(0 0 4px rgba(77,184,122,.5)); opacity: 1; }
-      to   { filter: drop-shadow(0 0 18px rgba(77,184,122,1)); opacity: 1; }
-    }
-
-    /* Text */
     .pl-text-wrap {
       overflow: hidden;
       height: 1.4rem;
@@ -194,7 +179,6 @@
 
     @keyframes slideUpText { to { transform: translateY(0); } }
 
-    /* LED progress bar under lens */
     .pl-bar-wrap {
       width: 180px;
       height: 2px;
@@ -1762,7 +1746,6 @@
 
 <!-- PRELOADER — LED Lens Strip -->
 <div id="preloader">
-  <!-- LED lens animation: sweeps left→right tracing glasses shape -->
   <svg class="pl-svg" viewBox="0 0 300 110" xmlns="http://www.w3.org/2000/svg">
     <defs>
       <filter id="ledGlowF" x="-40%" y="-40%" width="180%" height="180%">
@@ -1770,27 +1753,21 @@
         <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
       </filter>
     </defs>
-    <!-- left temple — first to appear (starts at far left) -->
     <path class="pl-led-path" d="M 4 46 L 34 50"
           style="--dash:32;--dur:.18s;--delay:0s"
           stroke="#4db87a" stroke-width="2.8" fill="none" stroke-linecap="round" filter="url(#ledGlowF)"/>
-    <!-- left lens circle drawn L→R -->
     <circle class="pl-led-path" cx="78" cy="58" r="42"
             style="--dash:264;--dur:.42s;--delay:.15s"
             fill="none" stroke="#4db87a" stroke-width="2.8" filter="url(#ledGlowF)"/>
-    <!-- bridge top -->
     <path class="pl-led-path" d="M 120 46 Q 150 36 180 46"
           style="--dash:65;--dur:.14s;--delay:.54s"
           stroke="#4db87a" stroke-width="2.8" fill="none" stroke-linecap="round" filter="url(#ledGlowF)"/>
-    <!-- right lens circle -->
     <circle class="pl-led-path" cx="222" cy="58" r="42"
             style="--dash:264;--dur:.42s;--delay:.65s"
             fill="none" stroke="#4db87a" stroke-width="2.8" filter="url(#ledGlowF)"/>
-    <!-- right temple -->
     <path class="pl-led-path" d="M 264 50 L 296 46"
           style="--dash:32;--dur:.18s;--delay:1.04s"
           stroke="#4db87a" stroke-width="2.8" fill="none" stroke-linecap="round" filter="url(#ledGlowF)"/>
-    <!-- reflections (subtle) -->
     <path class="pl-led-path" d="M 52 40 Q 66 32 86 35"
           style="--dash:40;--dur:.2s;--delay:.32s"
           stroke="rgba(77,184,122,0.5)" stroke-width="1.6" fill="none" stroke-linecap="round" filter="url(#ledGlowF)"/>
@@ -1798,11 +1775,9 @@
           style="--dash:40;--dur:.2s;--delay:.82s"
           stroke="rgba(77,184,122,0.5)" stroke-width="1.6" fill="none" stroke-linecap="round" filter="url(#ledGlowF)"/>
   </svg>
-  <!-- Progress bar -->
   <div class="pl-bar-wrap">
     <div class="pl-bar-fill"></div>
   </div>
-  <!-- Text -->
   <div class="pl-text-wrap">
     <div class="pl-text">Enfocando tu visión</div>
   </div>
@@ -2468,8 +2443,12 @@ function closePhoneSelector() {
 }
 
 /* ── Existing Scripts ── */
+history.scrollRestoration = 'manual';
+window.scrollTo(0, 0);
+
 /* ── Preloader ─────────────────────────────────── */
 window.addEventListener('load', () => {
+  window.scrollTo(0, 0);
   setTimeout(() => {
     document.getElementById('preloader').classList.add('hidden');
     // Trigger hero line reveals
