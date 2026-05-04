@@ -229,11 +229,11 @@
       justify-content: space-between;
       transition: background .4s, backdrop-filter .4s, border-color .4s;
       border-bottom: 1px solid transparent;
-      background: var(--g6);
+      background: #ffffff;
     }
 
     nav.scrolled {
-      background: rgba(235,248,240,.94);
+      background: rgba(255,255,255,.94);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
       border-color: var(--g5);
@@ -397,6 +397,7 @@
     .hero {
       min-height: 100vh;
       padding: 72px 5vw 0;
+      background: #ffffff;
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 3rem;
@@ -475,7 +476,7 @@
 
     .hero-h1 {
       font-family: 'DM Serif Display', Georgia, serif;
-      font-size: clamp(3rem, 5.5vw, 5.2rem);
+      font-size: clamp(1.3rem, 1.8vw, 1.7rem);
       line-height: 1.05;
       letter-spacing: -.025em;
       color: var(--text);
@@ -1243,7 +1244,7 @@
       background: var(--white);
       border-radius: 20px;
       overflow: hidden;
-      transition: all 0.7s var(--ease-out-expo);
+      transition: all 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       box-shadow: 0 10px 40px rgba(0,0,0,0.15);
       cursor: none;
       user-select: none;
@@ -1381,7 +1382,7 @@
 
     .about-img-accent {
       position: absolute;
-      bottom: 0; left: 0;
+      bottom: -40px; right: 0;
       width: 35%;
       aspect-ratio: 4 / 5;
       object-fit: cover;
@@ -1803,11 +1804,9 @@
 
 <!-- ─── HERO ──────────────────────────────────────── -->
 <section id="inicio" class="hero">
-  <div class="hero-bg-orb orb-1"></div>
-  <div class="hero-bg-orb orb-2"></div>
 
   <div class="hero-text">
-    <h2 class="hero-title-main fade-up">Óptica Lentes de Tassara</h2>
+    <img src="logo 2.png" alt="Óptica Lentes de Tassara" class="fade-up" style="width: 100%; max-width: 100%; margin-bottom: 1.5rem; display: block; mix-blend-mode: multiply;" />
 
     <h1 class="hero-h1">
       <span class="line-wrap"><span class="line-inner">Tu visión,</span></span>
@@ -1815,8 +1814,7 @@
     </h1>
 
     <p class="hero-sub fade-up stagger-1">
-      <strong>Ve el mundo con una nueva mirada.</strong><br><br>
-      Más de 5 años cuidando la salud visual de las familias arequipeñas. Lentes de precisión, monturas de diseño y atención personalizada en Yanahuara.
+Más de 5 años cuidando la salud visual de las familias arequipeñas. Lentes de precisión, monturas de diseño y atención personalizada en Yanahuara.
     </p>
 
     <div class="hero-actions">
@@ -1848,7 +1846,7 @@
 <section id="nosotros" class="section">
   <div class="about-grid">
     <div class="about-img-wrap fade-up">
-      <img class="about-img-main" src="661585542_1976718569718870_5688380568345839057_n.jpg" alt="Tecnología Panal" />
+      <img class="about-img-main" src="681550426_17958720894087793_6138177766280919637_n.jpg" alt="Tecnología Panal" />
       <img class="about-img-accent" src="foto 2.jpeg" alt="Atención" />
       <div class="about-chip">+5 años en Arequipa</div>
     </div>
@@ -2580,8 +2578,14 @@ function moveCarousel(direction) {
   updateCarousel();
 }
 
-prevBtn.addEventListener('click', () => moveCarousel(-1));
-nextBtn.addEventListener('click', () => moveCarousel(1));
+prevBtn.addEventListener('click', () => { moveCarousel(-1); resetAutoplay(); });
+nextBtn.addEventListener('click', () => { moveCarousel(1); resetAutoplay(); });
+
+let autoplayTimer = setInterval(() => moveCarousel(1), 2000);
+function resetAutoplay() {
+  clearInterval(autoplayTimer);
+  autoplayTimer = setInterval(() => moveCarousel(1), 2000);
+}
 
 // Touch support for swipe
 let touchStartX = 0;
